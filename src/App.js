@@ -10,10 +10,12 @@ function App() {
     const [search, setSearch] = useState("");
     const [query, setQuery] = useState("chicken");
 
-    useEffect(() => {
-        getRecipes();
-        console.log("Fetching");
-    }, [query]);
+    useEffect(
+        (getRecipes) => {
+            getRecipes();
+        },
+        [query]
+    );
 
     const getRecipes = async () => {
         const response = await fetch(
@@ -31,6 +33,7 @@ function App() {
     const getSearch = (e) => {
         e.preventDefault();
         setQuery(search);
+        setSearch("");
     };
 
     return (
@@ -52,6 +55,7 @@ function App() {
                     title={recipe.recipe.label}
                     image={recipe.recipe.image}
                     calories={recipe.recipe.calories}
+                    ingredients={recipe.recipe.ingredients}
                 />
             ))}
         </div>
